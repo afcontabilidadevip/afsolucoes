@@ -45,7 +45,7 @@ footer{border-top:1px solid #111;padding:30px 0;text-align:center;color:#aaa}
 
 <header>
   <div class="container nav">
-    <div class="logo">A&F Soluções Contábeis</div>
+    <div class="logo"><img src="logo.png" alt="A&F" style="height:40px;vertical-align:middle;margin-right:10px;">A&F Soluções Contábeis</div>
     <a class="btn" href="#contato">Falar com especialista</a>
   </div>
   <div class="container hero">
@@ -179,23 +179,68 @@ function simular(){
     ? 'Melhor relação entre base de cálculo e alíquotas para o seu perfil.'
     : 'Tributação sobre o lucro efetivo reduz a carga neste cenário.';
 
-  resultadoGlobal = `Diagnóstico Tributário:\n\nMelhor regime: ${regime}\n\nSimples: ${formatar(simples)}\nPresumido: ${formatar(presumido)}\nLucro Real: ${formatar(real)}\n\nFator R: ${(fatorR*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}%\n\nAnálise: ${explicacao}`;
+  let aliquotaSimples = (simples/fat)*100;
+  let aliquotaPresumido = (presumido/fat)*100;
+  let aliquotaReal = (real/fat)*100;
+
+  let economia = fat - menor;
+
+  resultadoGlobal = `Diagnóstico Tributário:\n\nMelhor regime: ${regime}\n\n💰 Economia estimada: ${formatar(economia)}\n\nSimples Nacional:\nValor: ${formatar(simples)}\nAlíquota efetiva: ${aliquotaSimples.toFixed(2)}%\n\nLucro Presumido:\nValor: ${formatar(presumido)}\nAlíquota efetiva: ${aliquotaPresumido.toFixed(2)}%\n\nLucro Real:\nValor: ${formatar(real)}\nAlíquota efetiva: ${aliquotaReal.toFixed(2)}%\n\nFator R: ${(fatorR*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}%\n\nAnálise Técnica: ${explicacao}\n\nConclusão: Com base nos dados informados, recomendamos o enquadramento em ${regime} visando otimização da carga tributária e maior eficiência financeira.`;
 
   document.getElementById('res').innerHTML = resultadoGlobal.replace(/\n/g,'<br>');
 }
 
 function gerarPDF(){
+  if(!resultadoGlobal){
+    alert('Faça a simulação antes de gerar o PDF');
+    return;
+  }
+
   const { jsPDF } = window.jspdf;
   let doc = new jsPDF();
-  doc.setFontSize(16);
-  doc.text("A&F Soluções Contábeis", 10, 10);
-  doc.setFontSize(12);
-  doc.text("Diagnóstico Tributário Personalizado", 10, 20);
-  doc.setFontSize(10);
-  doc.text(resultadoGlobal, 10, 30);
-  doc.text("\nFale conosco para reduzir sua carga com segurança.", 10, 90);
-  doc.text("WhatsApp: (91) 99345-0450", 10, 105);
-  doc.save("diagnostico-tributario.pdf");
+
+  let img = new Image();
+  img.src = 'logo.png';
+
+  img.onload = function(){
+    doc.setFillColor(255,106,0);
+    doc.rect(0,0,210,25,'F');
+
+    doc.addImage(img, 'PNG', 10, 5, 30, 15);
+
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(16);
+    doc.text("A&F Soluções Contábeis", 50, 15);
+
+    doc.setTextColor(0,0,0);
+    doc.setFontSize(14);
+    doc.text("Diagnóstico Tributário Profissional", 10, 35);
+
+    doc.setDrawColor(255,106,0);
+    doc.rect(10, 40, 190, 80);
+
+    doc.setFontSize(10);
+    let linhas = doc.splitTextToSize(resultadoGlobal, 180);
+    doc.text(linhas, 12, 45);
+
+    // Destaque de economia
+    doc.setTextColor(0,128,0);
+    doc.setFontSize(12);
+    doc.text("Potencial de economia identificado", 12, 125);
+
+    doc.setFillColor(0,0,0);
+    doc.rect(0,130,210,30,'F');
+
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(10);
+    doc.text("Este relatório é uma simulação baseada nas informações fornecidas.", 10, 140);
+    doc.text("Fale com um especialista para um planejamento completo.", 10, 147);
+
+    doc.setTextColor(255,106,0);
+    doc.text("WhatsApp: (91) 99345-0450", 10, 155);
+
+    doc.save("diagnostico-tributario-premium.pdf");
+  };
 }
 
 function abrirWhatsApp(){

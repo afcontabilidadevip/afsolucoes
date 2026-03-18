@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A&F Soluções Contábeis</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--laranja:#ff6a00;--preto:#0b0b0b;--cinza:#1b1b1b;--cinza2:#2a2a2a;--branco:#ffffff;}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',sans-serif;background:var(--preto);color:var(--branco)}
+.container{max-width:1140px;margin:auto;padding:0 20px}
+header{background:radial-gradient(1200px 400px at 50% -100px, rgba(255,106,0,.35), transparent), linear-gradient(135deg,#111,#000);border-bottom:1px solid #222}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:700;letter-spacing:.5px}
+.btn{display:inline-block;background:var(--laranja);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600}
+.btn.outline{background:transparent;border:1px solid var(--laranja);color:var(--laranja)}
+.hero{padding:80px 0 60px;text-align:center}
+.hero h1{font-size:2.6em;line-height:1.2;margin:0 0 10px}
+.hero p{opacity:.85;margin-bottom:22px}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{border:1px solid #333;background:#121212;border-radius:999px;padding:6px 12px;font-size:12px}
+.section{padding:70px 0;border-top:1px solid #111}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:linear-gradient(180deg,#141414,#0f0f0f);border:1px solid #222;border-radius:16px;padding:22px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.card h3{margin-top:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:20px}
+.kpi{background:#121212;border:1px solid #222;border-radius:14px;padding:18px;text-align:center}
+.kpi strong{font-size:1.6em;color:var(--laranja)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.step{background:#121212;border:1px dashed #333;border-radius:14px;padding:18px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form .full{grid-column:1/-1}
+input,select,button{width:100%;padding:12px;border-radius:10px;border:1px solid #2b2b2b;background:var(--cinza2);color:#fff}
+button{background:var(--laranja);border:none;font-weight:700;cursor:pointer}
+button.secondary{background:transparent;border:1px solid var(--laranja);color:var(--laranja)}
+.result{margin-top:16px;background:#0e0e0e;border:1px solid #222;border-radius:14px;padding:16px}
+footer{border-top:1px solid #111;padding:30px 0;text-align:center;color:#aaa}
+.small{font-size:12px;opacity:.8}
+@media (max-width:700px){.hero h1{font-size:2em}.form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">A&F Soluções Contábeis</div>
+    <a class="btn" href="#contato">Falar com especialista</a>
+  </div>
+  <div class="container hero">
+    <h1>Pague menos impostos com uma <span style="color:var(--laranja)">estratégia premium</span></h1>
+    <p>Diagnóstico tributário inteligente, com tecnologia e atendimento especialista para reduzir sua carga de forma legal.</p>
+    <div class="badges">
+      <span class="badge">Diagnóstico em minutos</span>
+      <span class="badge">Redução legal</span>
+      <span class="badge">Atendimento consultivo</span>
+    </div>
+    <div style="margin-top:20px">
+      <a class="btn" href="#simulador">Simular agora</a>
+      <a class="btn outline" href="#contato">Quero atendimento</a>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h2>Resultados que nossos clientes buscam</h2>
+    <div class="kpis">
+      <div class="kpi"><strong>até 30%</strong><div>de economia</div></div>
+      <div class="kpi"><strong>+100</strong><div>empresas atendidas</div></div>
+      <div class="kpi"><strong>24h</strong><div>para primeiro diagnóstico</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Como funciona</h2>
+    <div class="how">
+      <div class="step"><strong>1.</strong> Informe seus dados e simule seu cenário</div>
+      <div class="step"><strong>2.</strong> Receba o melhor regime e análise automática</div>
+      <div class="step"><strong>3.</strong> Fale com um especialista e implemente</div>
+    </div>
+  </div>
+</section>
+
+<section id="simulador" class="section">
+  <div class="container">
+    <h2>Simulação Tributária Avançada</h2>
+    <div class="card">
+      <div class="form">
+        <div>
+          <label>Faturamento Mensal</label>
+          <input type="number" id="fat" placeholder="Ex: 50000">
+        </div>
+        <div>
+          <label>Margem de Lucro (%)</label>
+          <input type="number" id="margem" placeholder="Ex: 20">
+        </div>
+        <div>
+          <label>Folha de Pagamento (%)</label>
+          <input type="number" id="folha" placeholder="Ex: 28">
+        </div>
+        <div>
+          <label>Anexo do Simples</label>
+          <select id="anexo">
+            <option value="3">Anexo III</option>
+            <option value="5">Anexo V</option>
+          </select>
+        </div>
+        <div class="full">
+          <button onclick="simular()">Simular cenário</button>
+          <button class="secondary" onclick="gerarPDF()">Gerar relatório profissional</button>
+        </div>
+      </div>
+      <div id="res" class="result"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="section">
+  <div class="container">
+    <h2>Receba um diagnóstico gratuito</h2>
+    <div class="card">
+      <form class="form" onsubmit="capturarLead(event)">
+        <input class="full" type="text" id="nome" placeholder="Seu nome" required>
+        <input type="text" id="telefone" placeholder="WhatsApp" required>
+        <input type="number" id="faturamentoLead" placeholder="Faturamento médio" required>
+        <div class="full">
+          <button type="submit">Quero reduzir meus impostos</button>
+        </div>
+      </form>
+      <div style="margin-top:10px">
+        <button class="btn" onclick="abrirWhatsApp()">Atendimento imediato no WhatsApp</button>
+      </div>
+      <p class="small">Ao enviar, você concorda em receber contato da A&F Soluções Contábeis.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 A&F Soluções Contábeis • WhatsApp (91) 99345-0450
+  </div>
+</footer>
+
+<script>
+let resultadoGlobal="";
+function formatar(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+
+function simular(){
+  let fat = parseFloat(document.getElementById('fat').value);
+  let margem = parseFloat(document.getElementById('margem').value);
+  let folha = parseFloat(document.getElementById('folha').value);
+  let anexo = document.getElementById('anexo').value;
+
+  if(!fat || !margem || !folha){
+    document.getElementById('res').innerText='Preencha todos os campos';
+    return;
+  }
+
+  let fatorR = folha / fat;
+  let simples;
+  if(anexo==5 && fatorR >= 0.28){simples = fat*0.06}
+  else if(anexo==5){simples = fat*0.15}
+  else{simples = fat*0.06}
+
+  let presumido = fat*0.13;
+  let lucroBase = fat*(margem/100);
+  let real = lucroBase*0.24;
+
+  let menor = Math.min(simples,presumido,real);
+  let regime = menor===simples?'Simples Nacional':(menor===presumido?'Lucro Presumido':'Lucro Real');
+
+  let explicacao = regime==='Simples Nacional'
+    ? 'Mais vantajoso pela menor carga e simplicidade operacional neste cenário.'
+    : regime==='Lucro Presumido'
+    ? 'Melhor relação entre base de cálculo e alíquotas para o seu perfil.'
+    : 'Tributação sobre o lucro efetivo reduz a carga neste cenário.';
+
+  resultadoGlobal = `Diagnóstico Tributário:\n\nMelhor regime: ${regime}\n\nSimples: ${formatar(simples)}\nPresumido: ${formatar(presumido)}\nLucro Real: ${formatar(real)}\n\nFator R: ${(fatorR*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}%\n\nAnálise: ${explicacao}`;
+
+  document.getElementById('res').innerHTML = resultadoGlobal.replace(/\n/g,'<br>');
+}
+
+function gerarPDF(){
+  const { jsPDF } = window.jspdf;
+  let doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text("A&F Soluções Contábeis", 10, 10);
+  doc.setFontSize(12);
+  doc.text("Diagnóstico Tributário Personalizado", 10, 20);
+  doc.setFontSize(10);
+  doc.text(resultadoGlobal, 10, 30);
+  doc.text("\nFale conosco para reduzir sua carga com segurança.", 10, 90);
+  doc.text("WhatsApp: (91) 99345-0450", 10, 105);
+  doc.save("diagnostico-tributario.pdf");
+}
+
+function abrirWhatsApp(){
+  window.open('https://wa.me/5591993450450?text=Olá, quero um diagnóstico tributário completo');
+}
+
+function enviarParaSheets(nome, tel, fat){
+  fetch('https://script.google.com/macros/s/SEU_SCRIPT_ID/exec', {
+    method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({nome, tel, fat})
+  });
+}
+
+function capturarLead(e){
+  e.preventDefault();
+  let nome=document.getElementById('nome').value;
+  let tel=document.getElementById('telefone').value;
+  let fat=document.getElementById('faturamentoLead').value;
+
+  let msg=`Olá, me chamo ${nome}. Meu faturamento é R$ ${fat}. Meu telefone: ${tel}. Quero reduzir impostos.`;
+
+  let leads = JSON.parse(localStorage.getItem('leads') || '[]');
+  leads.push({nome, tel, fat, data:new Date()});
+  localStorage.setItem('leads', JSON.stringify(leads));
+
+  enviarParaSheets(nome, tel, fat);
+
+  window.open(`https://wa.me/5591993450450?text=${encodeURIComponent(msg)}`);
+}
+</script>
+
+</body>
+</html>
